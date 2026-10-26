@@ -185,6 +185,8 @@ export const IDENTITY = {
   handle: "rahulbag3",
   github: "https://github.com/rahulbag3",
   repos: "https://github.com/rahulbag3?tab=repositories",
+  x: "https://x.com/RahulBag10",
+  instagram: "https://www.instagram.com/rahul_50/",
 };
 
 export const SECTION_ORDER = [
