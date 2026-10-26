@@ -43,6 +43,10 @@ Moving to a custom domain means updating those URLs and `<link rel="canonical">`
 `CNAME` file. Everything else — CSS, scripts, images, the snapshot — uses relative paths and
 needs no change.
 
+Pages serves assets with `Cache-Control: max-age=600`, so for up to ten minutes after a deploy a
+returning visitor can still run the previous scripts; a reload picks up the new ones. There are no
+build-time content hashes to rely on, which is the cost of shipping without a build step.
+
 ## Structure
 
 ```
