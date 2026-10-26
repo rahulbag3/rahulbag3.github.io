@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rahul — software that shows its work</title>
+  <meta name="description" content="Rahul (@rahulbag3) builds instruments: an Android control centre for coding agents, Windows network meters, and a Material 3 interface redesign. Selected work and public repositories." />
+  <meta name="author" content="Rahul" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#A0A5B1" />
+  <link rel="canonical" href="https://rahulbag3.github.io/" />
+
+  <!-- Open Graph / social. Absolute URLs: scrapers do not resolve relative ones. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rahul" />
+  <meta property="og:url" content="https://rahulbag3.github.io/" />
+  <meta property="og:title" content="Rahul — software that shows its work" />
+  <meta property="og:description" content="An Android control centre for coding agents, Windows network meters, and a Material 3 interface redesign. Every project pulled from the public GitHub API." />
+  <meta property="og:image" content="https://rahulbag3.github.io/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Rahul — software that shows its work. A wireframe lattice and globe on slate." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rahul — software that shows its work" />
+  <meta name="twitter:description" content="An Android control centre for coding agents, Windows network meters, and a Material 3 interface redesign." />
+  <meta name="twitter:image" content="https://rahulbag3.github.io/assets/og.png" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <!-- The 3D layer. Decorative, drawn behind everything, never interactive. -->
+  <canvas class="scene" id="scene" aria-hidden="true"></canvas>
+
+  <a class="skip" href="#work">Skip to work</a>
+
+  <!--
+    Pixel wordmark. Drawn from a hand-built 5x7 cell font so the site ships no
+    image for its own logotype and stays crisp at any size. Five glyphs, each a
+    single path of run-length pixel runs.
+  -->
+  <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <path id="px-R" d="M0 0h4v1h-4zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM2 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z" />
+      <path id="px-A" d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h5v1h-5zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z" />
+      <path id="px-H" d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h5v1h-5zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z" />
+      <path id="px-U" d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h1v1h-1zM4 3h1v1h-1zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z" />
+      <path id="px-L" d="M0 0h1v1h-1zM0 1h1v1h-1zM0 2h1v1h-1zM0 3h1v1h-1zM0 4h1v1h-1zM0 5h1v1h-1zM0 6h5v1h-5z" />
+    </defs>
+  </svg>
+
+  <!--
+    Boot sequence. Purely a loading state, so it is removed as soon as the document is
+    interactive; with JavaScript off it never appears at all (see the noscript rule).
+  -->
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <p class="boot__mark" aria-hidden="true"></p>
+    <p class="boot__line">Booting instrument</p>
+    <p class="boot__note">Repository data comes from the public GitHub API.</p>
+  </div>
+  <noscript><style>.boot{display:none!important}</style></noscript>
+
+  <header class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#manifest">
+        <svg class="wordmark" viewBox="0 0 29 7" role="img" aria-label="Rahul" fill="currentColor" shape-rendering="crispEdges">
+          <use href="#px-R" /><use href="#px-A" x="6" /><use href="#px-H" x="12" /><use href="#px-U" x="18" /><use href="#px-L" x="24" />
+        </svg>
+        <span class="brand__handle">@rahulbag3</span>
+      </a>
+
+      <nav class="nav" aria-label="Sections">
+        <a data-nav-link href="#work">02 Work</a>
+        <a data-nav-link href="#signal">03 Signal</a>
+        <a data-nav-link href="#about">04 About</a>
+        <a data-nav-link href="#contact">06 Contact</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <a class="btn btn--ghost btn--sm" href="https://github.com/rahulbag3" target="_blank" rel="noopener noreferrer">
+          <span>GitHub</span>
+        </a>
+        <button class="menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="progress"><span id="progress"></span></div>
+  </header>
+
+  <nav class="menu" id="menu" data-open="false" aria-label="Sections">
+    <a href="#work">02 · Work</a>
+    <a href="#signal">03 · Signal</a>
+    <a href="#about">04 · About</a>
+    <a href="#prototypes">05 · Building</a>
+    <a href="#contact">06 · Contact</a>
+    <a class="menu__ext" href="https://github.com/rahulbag3" target="_blank" rel="noopener noreferrer">github.com/rahulbag3</a>
+  </nav>
+
+  <div class="corner" id="section-index" aria-hidden="true">
+    <span id="index-num">01</span>
+    <span class="corner__sep">/</span>
+    <span>06 ·</span>
+    <span id="index-label">Manifest</span>
+  </div>
+
+  <main id="main">
+    <!-- ═══════════════ 01 · MANIFEST ═══════════════ -->
+    <section class="hero" id="manifest" aria-labelledby="manifest-title">
+      <div class="wrap hero__inner">
+        <div class="hero__top">
+          <div class="hero__stamp" data-reveal>
+            <p>// Instruments, built and labelled honestly.</p>
+            <p>Rahul · @rahulbag3</p>
+            <p>Kotlin · C# · TypeScript</p>
+          </div>
+
+          <div class="hero__lede-col" data-reveal>
+            <p class="slash">
+              <span class="slash__run" aria-hidden="true">/////</span>
+              <span>01 · Manifest</span>
+            </p>
+            <p class="hero__lede">
+              I build tools for the places where numbers matter — a phone that reviews its own diffs,
+              a desktop meter that only measures when asked, and an interface written from scratch.
+              Everything on this page is a public repository, read live from the GitHub API.
+            </p>
+          </div>
+        </div>
+
+        <div class="hero__mid">
+          <h1 class="hero__title" id="manifest-title" data-reveal>
+            Software that<br /><em>shows its work.</em>
+          </h1>
+
+          <div class="hero__actions" data-reveal>
+            <a class="btn btn--solid" href="#work">
+              <span>See the repositories</span>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="https://github.com/rahulbag3" target="_blank" rel="noopener noreferrer">
+              <span>github.com/rahulbag3</span>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__foot">
+          <p class="hero__hint">
+            <a href="#work">Scroll down to discover.</a>
+            <span>Source: <span class="mono-inline" id="data-source-hero">GitHub API</span></span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 02 · WORK ═══════════════ -->
+    <section class="sec" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="slash">
+            <span class="slash__run" aria-hidden="true">/////</span>
+            <span>02 · Work</span>
+          </p>
+          <div class="sec-head__box">
+            <h2 class="sec-head__title" id="work-title">Selected work</h2>
+            <p class="sec-head__note">
+              Every public repository, pulled from the GitHub API and ranked by how finished the
+              thing is rather than by stars — none of them have any.
+            </p>
+          </div>
+        </header>
+
+        <div class="featured" id="featured"></div>
+
+        <div class="index-head" data-reveal>
+          <h3 class="index-head__title">Repository index</h3>
+          <p class="index-head__note">
+            <span class="dot-live" aria-hidden="true"></span>
+            Source: <span id="data-source" class="mono-inline">checking…</span>
+          </p>
+        </div>
+
+        <div class="filters" data-reveal>
+          <div class="filters__chips" id="filters" role="group" aria-label="Filter by category"></div>
+          <div class="filters__tools">
+            <label class="field">
+              <span class="field__label">Search</span>
+              <input id="search" type="search" placeholder="name, note, technology…" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span class="field__label">Language</span>
+              <select id="lang-select" aria-label="Filter by language"></select>
+            </label>
+          </div>
+          <p class="filters__status" id="filter-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="listing" id="project-list"></div>
+        <div id="filter-empty"></div>
+
+        <p class="note" id="data-note" hidden></p>
+
+        <noscript>
+          <div class="state state--error">
+            <p class="state__title">JavaScript is off, so the live repository list cannot render.</p>
+            <p class="state__msg">Everything it would show is public here:</p>
+            <ul class="plainlist">
+              <li><a href="https://github.com/rahulbag3/agentdeck-android">agentdeck-android</a> — native Android control centre for coding agents (Kotlin)</li>
+              <li><a href="https://github.com/rahulbag3/internet-speed-meter">internet-speed-meter</a> — floating Windows network meter (WPF + WebView2)</li>
+              <li><a href="https://github.com/rahulbag3/syncthing-android-redesign">syncthing-android-redesign</a> — Material 3 interface redesign (Java/Kotlin)</li>
+              <li><a href="https://github.com/rahulbag3/speed-test">speed-test</a> — Velocity, a Material You speed test design system (TypeScript)</li>
+              <li><a href="https://github.com/rahulbag3/LiquidMonitor">LiquidMonitor</a> — WinUI 3 network monitor prototype (C#)</li>
+            </ul>
+          </div>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 03 · SIGNAL ═══════════════ -->
+    <section class="sec" id="signal" aria-labelledby="signal-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="slash">
+            <span class="slash__run" aria-hidden="true">/////</span>
+            <span>03 · Signal</span>
+          </p>
+          <div class="sec-head__box">
+            <h2 class="sec-head__title" id="signal-title">Public activity</h2>
+            <p class="sec-head__note">
+              What the public feed actually shows. If GitHub's events endpoint is unavailable, this
+              falls back to commit recency and says so.
+            </p>
+          </div>
+        </header>
+
+        <div class="stats" id="signal-stats"></div>
+
+        <p class="note note--inline" id="activity-note"></p>
+
+        <ul class="log" id="activity" aria-label="Recent public activity"></ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 04 · ABOUT ═══════════════ -->
+    <section class="sec" id="about" aria-labelledby="about-title">
+      <div class="wrap wrap--split">
+        <header class="sec-head sec-head--stack" data-reveal>
+          <p class="slash">
+            <span class="slash__run" aria-hidden="true">/////</span>
+            <span>04 · About</span>
+          </p>
+          <h2 class="sec-head__title" id="about-title">About</h2>
+        </header>
+
+        <div class="prose" data-reveal>
+          <p class="prose__lead">
+            I write software and finish it. Most of what is here is an instrument of some kind:
+            something that measures a network, watches a process, or helps a machine explain what
+            it just did.
+          </p>
+          <p>
+            The range is deliberate. Android control planes in Kotlin. Windows utilities on WPF and
+            WinUI. A Next.js design system with the colour maths written by hand — sRGB through
+            OKLCH to tonal palettes, no library. Different surfaces, same habit: build the real
+            thing, then let the interface state plainly what is going on.
+          </p>
+          <p>
+            Two of the five repositories are deliberately unfinished, and their READMEs say so.
+            They are included anyway, because a half-built instrument with an honest label is more
+            useful than a polished one that overstates itself.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 05 · BUILDING ═══════════════ -->
+    <section class="sec" id="prototypes" aria-labelledby="build-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="slash">
+            <span class="slash__run" aria-hidden="true">/////</span>
+            <span>05 · Building</span>
+          </p>
+          <div class="sec-head__box">
+            <h2 class="sec-head__title" id="build-title">Now building</h2>
+            <p class="sec-head__note">
+              Open work, described in the terms the repository itself uses. Nothing here is
+              presented as finished.
+            </p>
+          </div>
+        </header>
+        <div class="now-list" id="now-list"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 06 · CONTACT ═══════════════ -->
+    <section class="sec" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="slash">
+            <span class="slash__run" aria-hidden="true">/////</span>
+            <span>06 · Contact</span>
+          </p>
+          <div class="sec-head__box">
+            <h2 class="sec-head__title" id="contact-title">Contact</h2>
+            <p class="sec-head__note">
+              GitHub is the only verified channel here, so it is the only one listed. Issues and
+              discussions on the repositories are read.
+            </p>
+          </div>
+        </header>
+
+        <ul class="contact-list">
+          <li data-reveal>
+            <a class="contact" href="https://github.com/rahulbag3" target="_blank" rel="noopener noreferrer">
+              <span class="contact__label">Profile</span>
+              <span class="contact__value">github.com/rahulbag3</span>
+              <span class="contact__go" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="contact" href="https://github.com/rahulbag3?tab=repositories" target="_blank" rel="noopener noreferrer">
+              <span class="contact__label">Repositories</span>
+              <span class="contact__value">github.com/rahulbag3?tab=repositories</span>
+              <span class="contact__go" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="contact" href="https://github.com/rahulbag3/agentdeck-android/issues" target="_blank" rel="noopener noreferrer">
+              <span class="contact__label">Open issues</span>
+              <span class="contact__value">agentdeck-android</span>
+              <span class="contact__go" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p class="footer__brand">
+        <svg class="wordmark" viewBox="0 0 29 7" role="img" aria-label="Rahul" fill="currentColor" shape-rendering="crispEdges">
+          <use href="#px-R" /><use href="#px-A" x="6" /><use href="#px-H" x="12" /><use href="#px-U" x="18" /><use href="#px-L" x="24" />
+        </svg>
+        <span class="mono-inline">@rahulbag3</span>
+      </p>
+      <p class="footer__meta">
+        Static site. No cookies, no analytics, no accounts. Repository data comes from the public
+        GitHub API, with a committed snapshot as fallback.
+      </p>
+      <p class="footer__meta footer__meta--dim">
+        <span id="year"></span> · <a href="DESIGN-SPEC.md">design notes</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

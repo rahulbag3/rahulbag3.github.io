@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+<!--
+  Source for assets/og.png (1200x630). Screenshot this file at 1200x630 and save
+  over assets/og.png. It mirrors the site's slate canvas, IBM Plex Mono setting,
+  brass accent marks and pixel wordmark, so the card and the page agree.
+-->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background: #a0a5b1;
+    color: #0c1119;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    overflow: hidden;
+  }
+  .frame { position: absolute; inset: 22px; border: 1px solid rgba(12,17,25,.34); }
+  .pad { position: absolute; inset: 0; padding: 64px 72px; display: flex; flex-direction: column; }
+
+  .top { display: flex; align-items: baseline; gap: 16px; }
+  .wordmark { display: block; width: 116px; height: 28px; fill: #0c1119; }
+  .handle { font-size: 17px; letter-spacing: .06em; color: #333941; }
+
+  .mid { margin-top: auto; }
+  .slash { display: flex; align-items: center; gap: 12px; font-size: 15px; letter-spacing: .16em; text-transform: uppercase; color: #333941; margin-bottom: 26px; }
+  .slash b { color: #904619; font-weight: 400; letter-spacing: .02em; }
+  h1 { font-size: 96px; font-weight: 500; line-height: .96; letter-spacing: -.04em; }
+  h1 em { font-style: normal; color: #6e4208; }
+
+  .bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-top: 40px; }
+  .stamp { display: flex; flex-direction: column; gap: 8px; font-size: 15px; letter-spacing: .05em; line-height: 1.55; color: #333941; }
+  .stamp .strong { color: #0c1119; }
+  .url { font-size: 16px; letter-spacing: .05em; color: #4e2e06; }
+
+  svg.lattice { position: absolute; inset: 0; width: 1200px; height: 630px; }
+</style>
+</head>
+<body>
+  <svg class="lattice" viewBox="0 0 1200 630" fill="none" aria-hidden="true">
+    <g id="terrain" stroke="#0c1119" stroke-width="1" opacity=".14"></g>
+    <g id="solid" stroke="#0c1119" stroke-width="1.4" opacity=".22"></g>
+  </svg>
+
+  <div class="frame"></div>
+
+  <div class="pad">
+    <div class="top">
+      <svg class="wordmark" viewBox="0 0 29 7" fill="currentColor" shape-rendering="crispEdges" aria-label="Rahul">
+        <path d="M0 0h4v1h-4zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM2 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z" transform="translate(0,0)" />
+        <path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h5v1h-5zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z" transform="translate(6,0)" />
+        <path d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h5v1h-5zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z" transform="translate(12,0)" />
+        <path d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h1v1h-1zM4 3h1v1h-1zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z" transform="translate(18,0)" />
+        <path d="M0 0h1v1h-1zM0 1h1v1h-1zM0 2h1v1h-1zM0 3h1v1h-1zM0 4h1v1h-1zM0 5h1v1h-1zM0 6h5v1h-5z" transform="translate(24,0)" />
+      </svg>
+      <span class="handle">@rahulbag3</span>
+    </div>
+
+    <div class="mid">
+      <p class="slash"><b>/////</b><span>Manifest</span></p>
+      <h1>Software that<br /><em>shows its work.</em></h1>
+    </div>
+
+    <div class="bottom">
+      <div class="stamp">
+        <span class="strong">// Instruments, built and labelled honestly.</span>
+        <span>Kotlin · C# · TypeScript</span>
+      </div>
+      <span class="url">github.com/rahulbag3</span>
+    </div>
+  </div>
+
+<script>
+  // Draw the same idea as the page's 3D layer: a displaced wireframe ground plane
+  // plus a wireframe solid, both in ink at low opacity so the card stays legible.
+  (function () {
+    const NS = "http://www.w3.org/2000/svg";
+    const terrain = document.getElementById("terrain");
+    const solidG = document.getElementById("solid");
+
+    // ── terrain: a perspective grid that scrolls away to the right.
+    const cols = 26, rows = 9;
+    const horizon = 300, near = 660;
+    const left = -40, right = 1240;
+    const pt = (i, j) => {
+      const fx = i / cols, fy = j / rows;
+      const ease = fy * fy * 0.82 + fy * 0.18;         // rows bunch near the horizon
+      const y = horizon + (near - horizon) * ease;
+      const spread = 0.28 + ease * 1.35;
+      const cx = 700;
+      const x = cx + (left + (right - left) * fx - cx) * spread;
+      const bump = Math.sin(fx * 9.5 + fy * 4.2) * 12 * (1 - fy) + Math.cos(fx * 5.1) * 7;
+      return [x, y - bump * (1 - fy * 0.7)];
+    };
+    const line = (a, b) => {
+      const p = document.createElementNS(NS, "line");
+      p.setAttribute("x1", a[0].toFixed(1)); p.setAttribute("y1", a[1].toFixed(1));
+      p.setAttribute("x2", b[0].toFixed(1)); p.setAttribute("y2", b[1].toFixed(1));
+      terrain.appendChild(p);
+    };
+    for (let j = 0; j <= rows; j++) for (let i = 0; i < cols; i++) line(pt(i, j), pt(i + 1, j));
+    for (let i = 0; i <= cols; i += 2) for (let j = 0; j < rows; j++) line(pt(i, j), pt(i, j + 1));
+
+    // ── solid: a wireframe globe cluster, upper right.
+    const cx = 985, cy = 200, R = 122;
+    const ellipse = (rx, ry, dy) => {
+      const e = document.createElementNS(NS, "ellipse");
+      e.setAttribute("cx", cx); e.setAttribute("cy", cy + (dy || 0));
+      e.setAttribute("rx", rx.toFixed(1)); e.setAttribute("ry", ry.toFixed(1));
+      solidG.appendChild(e);
+    };
+    // latitudes
+    for (const t of [-1, -0.5, 0, 0.5, 1]) {
+      const rx = R * Math.sqrt(Math.max(0, 1 - t * t));
+      ellipse(rx, rx * 0.3, R * t * 0.72);
+    }
+    // meridians
+    for (let a = 0; a <= Math.PI; a += Math.PI / 8) ellipse(R * Math.abs(Math.sin(a)), R, 0);
+  })();
+</script>
+</body>
+</html>

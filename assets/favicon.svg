@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 7 9" shape-rendering="crispEdges">
+  <rect x="-1" y="-1" width="7" height="9" fill="#A0A5B1"/>
+  <g fill="#0C1119" transform="translate(0 1)">
+    <path d="M0 0h4v1h-4zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM2 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/>
+  </g>
+</svg>
