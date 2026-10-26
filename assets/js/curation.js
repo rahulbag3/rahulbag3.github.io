@@ -56,6 +56,14 @@ export const CATEGORIES = [
   { id: "web", label: "Web" },
 ];
 
+/**
+ * Repositories that must never be listed as projects. The site's own source is the
+ * page, not an entry in it — and because it is created after this copy was written,
+ * letting it through would silently grow the listing the first time the API is
+ * queried post-deploy.
+ */
+export const EXCLUDED_REPOS = new Set(["rahulbag3.github.io"]);
+
 export const PROJECTS = {
   "agentdeck-android": {
     rank: 1,

@@ -13,7 +13,7 @@
  */
 
 import { SNAPSHOT } from "../data/snapshot.js";
-import { PROJECTS, NOW_BUILDING } from "./curation.js";
+import { PROJECTS, NOW_BUILDING, EXCLUDED_REPOS } from "./curation.js";
 
 const API = "https://api.github.com";
 const USER = "rahulbag3";
@@ -188,12 +188,17 @@ export function formatDate(iso) {
  * Public entry points
  * ------------------------------------------------------------------ */
 
+/** Is this repository one the showcase displays? Forks, archives and the site itself are not. */
+function showable(repo) {
+  return !repo.fork && !repo.archived && !EXCLUDED_REPOS.has(repo.name);
+}
+
 /** Load public repositories: cache, then live API, then the committed snapshot. */
 export async function loadRepositories({ signal } = {}) {
   const cached = readCache("repos", REPOS_TTL);
   if (cached) {
     return {
-      repositories: order(cached.repositories.map(decorate)),
+      repositories: order(cached.repositories.filter(showable).map(decorate)),
       user: cached.user,
       meta: { source: "cache", fetchedAt: new Date(cached.at).toISOString(), message: null },
     };
@@ -204,7 +209,7 @@ export async function loadRepositories({ signal } = {}) {
       `${API}/users/${USER}/repos?per_page=100&sort=updated&type=public`,
       signal,
     );
-    const usable = Array.isArray(raw) ? raw.filter((r) => !r.fork && !r.archived) : [];
+    const usable = Array.isArray(raw) ? raw.filter(showable) : [];
     if (!usable.length) throw new Error("GitHub API returned no usable repositories");
 
     // Language byte counts are a second endpoint per repository. They are a nicety,
@@ -233,7 +238,7 @@ export async function loadRepositories({ signal } = {}) {
     }
     const rateLimited = error?.status === 403 || error?.status === 429;
     return {
-      repositories: order(SNAPSHOT.repositories.map(decorate)),
+      repositories: order(SNAPSHOT.repositories.filter(showable).map(decorate)),
       user: SNAPSHOT.user,
       meta: {
         source: "snapshot",
