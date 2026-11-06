@@ -54,7 +54,7 @@ index.html                 semantic shell; hero, about and contact copy live her
 404.html                   branded not-found page (GitHub Pages serves it automatically)
 .nojekyll                  tells GitHub Pages to publish files as-is, no Jekyll pass
 README.md                  this file
-DESIGN-SPEC.md             the reference analysis and the resulting design decisions
+DESIGN-SPEC.md             design intent, tokens, 3D contracts and verification
 assets/
   css/styles.css           the whole design system
   js/
@@ -175,6 +175,5 @@ wordmark, so it never drifts from the live design.
 
 ## Design
 
-See [`DESIGN-SPEC.md`](./DESIGN-SPEC.md) for the reference analysis (what was observed on the
-reference site, what could not be observed, and which principles were carried over) and for the
-resulting type scale, palette, 3D legibility contract and motion rules.
+See [`DESIGN-SPEC.md`](./DESIGN-SPEC.md) for the design intent, the type scale and palette, the
+3D legibility contract, the motion rules and the verification record.

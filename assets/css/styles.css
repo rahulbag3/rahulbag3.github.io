@@ -1,18 +1,17 @@
 /* ==========================================================================
    Rahul — portfolio
-   Identity: taken from the reference's own material language.
-     · one deliberate canvas colour (#A0A5B1, measured from igloo.inc)
+   Identity: a spec sheet drawn on one deliberate canvas colour.
+     · one canvas colour (#A0A5B1); contrast comes from content, not chrome
      · IBM Plex Mono as the only voice, corner-anchored overlays, slash labels
      · a chunky pixel wordmark instead of a drawn logotype
      · one rationed warm accent, used as a mark rather than decoration
-   The ink polarity is the single deliberate departure: the reference draws light
-   text straight onto its scene (about 2.2:1 — unreadable by any standard), and a
-   portfolio has to be readable, so this sits dark ink on the slate instead.
+   Ink is dark on the slate, and every text token below is derived to pass
+   WCAG AA against #A0A5B1.
    ========================================================================== */
 
 /* ---------------------------------------------------------------- tokens */
 :root {
-  --bg: #a0a5b1; /* reference canvas */
+  --bg: #a0a5b1; /* canvas */
   --bg-2: #aab0bb; /* raised: screenshot frames, inputs */
   --bg-3: #b6bbc5; /* raised further: hover on an input */
 
@@ -25,7 +24,7 @@
 
   --accent: #4e2e06; /* brass, darkened until it passes 4.93:1 as text */
   --accent-lg: #6e4208; /* the same hue at 3.45:1 — display sizes only (AA large) */
-  --accent-mark: #904619; /* reference brass, decorative marks only (no text) */
+  --accent-mark: #904619; /* brass, decorative marks only (no text) */
 
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
@@ -141,8 +140,8 @@ main,
 }
 
 /* ---------------------------------------------------------------- boot loader
-   A nod to the reference's ASCII boot sequence: the mark is a real element whose
-   text is replaced by CSS, so it never reaches the accessibility tree. */
+   An ASCII boot sequence: the mark is a real element whose text is replaced by
+   CSS, so it never reaches the accessibility tree. */
 .boot {
   position: fixed;
   inset: 0;
@@ -457,7 +456,7 @@ main,
 }
 
 /* ---------------------------------------------------------------- slash label
-   The reference's section marker: a run of slashes, then the name. */
+   Section marker: a run of slashes, then the name. */
 .slash {
   display: flex;
   align-items: center;

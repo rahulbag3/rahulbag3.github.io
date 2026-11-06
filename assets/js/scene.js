@@ -3,8 +3,8 @@
  *
  * This module is loaded with a dynamic `import()` only when the browser reports WebGL and
  * the connection is not a data-saver, so it costs nothing on the paths where it cannot run.
- * It renders one thing: a monochrome lattice world in the reference's slate, built from the
- * same material vocabulary (wireframe masses, fog, tiny node markers).
+ * It renders one thing: a monochrome lattice world in the page's slate, built from a
+ * deliberately small vocabulary (wireframe masses, fog, tiny node markers).
  *
  * Legibility contract — this is the important part:
  *   The canvas is a fixed, full-bleed backdrop, so page text is always painted on top of it.
@@ -22,7 +22,7 @@
 
 import * as THREE from "../vendor/three/three.module.min.js";
 
-/** Reference canvas colour, measured from igloo.inc (`--bgColor: #A0A5B1`). */
+/** Canvas colour. Matches `--bg` in styles.css so the canvas is invisible against the page. */
 const BG = 0xa0a5b1;
 
 /** Scene palette — bounded so page text keeps its contrast (see the contract above). */

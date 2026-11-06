@@ -20,8 +20,8 @@ const RAW = "https://raw.githubusercontent.com/rahulbag3";
  * Language colours for the distribution bar and the language dots.
  *
  * GitHub's linguist palette is authored for a white background; several of its entries
- * (JavaScript's `#F1E05A`, Shell's `#89E051`) all but disappear on the reference's
- * `#A0A5B1` slate. These are the same hues taken down in lightness until each one reads
+ * (JavaScript's `#F1E05A`, Shell's `#89E051`) all but disappear on the
+ * `#A0A5B1` canvas. These are the same hues taken down in lightness until each one reads
  * as a distinct mark on the canvas, keeping the family recognisable.
  */
 export const LANGUAGE_COLORS = {
@@ -71,11 +71,11 @@ export const PROJECTS = {
     kind: "Android application",
     tags: ["Kotlin", "Android Keystore", "Room", "llama.cpp", "GGUF", "OpenAI-compatible API"],
     note:
-      "A control centre for coding agents that runs on the phone. Tasks live in a per-project workspace; a cloud model over your own API key streams replies with Markdown and per-message attribution; an optional host agent runs your own CLI in the real project folder and returns genuine git diffs and check results. A bundled llama.cpp runtime can import a GGUF model and answer offline.",
+      "A native Android agent harness that works from the phone alone. Chat answers with web search, page retrieval and persistent memory; Coding plans and edits files in an on-device workspace, runs shell and git, and hands back a real diff to review. Cloud models run on your own key, on-device models run through llama.cpp, and anything consequential waits for your approval.",
     facts: [
-      "Keys are encrypted with AES-256-GCM under an Android Keystore key; only ciphertext is stored.",
-      "Works without a host: execution is then explicitly labelled as simulated.",
-      "Tasks, plans, diffs and settings persist in Room across restarts and rotation.",
+      "Reads run automatically; file writes, shell commands and git commits each need explicit approval.",
+      "A cloud reply can commit its proposed files to a branch and open a pull request, with CI checks reported in the app.",
+      "API keys and tokens are AES-256-GCM encrypted under an Android Keystore key; only ciphertext is stored.",
     ],
     shots: [
       { file: "preview-native/home.png", w: 1080, h: 2400, alt: "AgentDeck home screen listing projects and tasks" },
@@ -118,7 +118,7 @@ export const PROJECTS = {
     facts: [
       "Licensed MPL-2.0, following the upstream Syncthing-Fork licensing.",
       "Distributed as tagged releases and installable through Obtainium.",
-      "Largest codebase here by repository size, at roughly 34 MB.",
+      "Ships under its own com.rahulbag3.syncthingfork package id.",
     ],
     shots: [
       { file: "app/src/main/play/listings/en-US/graphics/phone-screenshots/1-folders.png", w: 1080, h: 2400, alt: "Redesigned folders tab" },
